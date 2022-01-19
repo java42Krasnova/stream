@@ -2,18 +2,12 @@ package telran.util.stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,18 +79,18 @@ class StreamIntroductionTests {
 		Arrays.stream(lotoNum).forEach(n -> assertTrue(n >= 1 && n <= 49));
 	}
 
-//return true is array containcs two numbers, the sum of which equals half of all arrays numbers O[N]
+//return true is array contains two numbers, the sum of which equals half of all arrays numbers O[N]
 	private boolean isHalfhSum(int[] array) {
 		// TODO done
 		List<Integer>list = Arrays.stream(array).sorted().boxed().collect(Collectors.toList());
 		int halfSum = Arrays.stream(array).sum() / 2;
-		int lastindeToCheck = array.length - 1;
-		List<Integer> subList = list.subList(0, lastindeToCheck);
-		while (lastindeToCheck > 0) {
-			if (subList.contains(halfSum - list.get(lastindeToCheck--))) {
+		int lastIndexToCheck = array.length - 1;
+		List<Integer> subList = list.subList(0, lastIndexToCheck);
+		while (lastIndexToCheck > 0) {
+			if (subList.contains(halfSum - list.get(lastIndexToCheck--))) {
 				return true;
 			} 
-			subList = list.subList(0, lastindeToCheck);
+			subList = list.subList(0, lastIndexToCheck);
 		}
 		return false;
 	}
