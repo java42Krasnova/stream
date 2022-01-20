@@ -95,6 +95,16 @@ class StreamIntroductionTests {
 		return false;
 	}
 
+	private boolean isHalfhSum2(int[] array) {
+		// TODO done
+		int halfSum = Arrays.stream(array).sum() / 2;
+		for(int i=array.length-1; i>=1; i--) {
+			if(array[i]+ array[i-1] == halfSum)
+				return true;
+		}
+		return false;
+	}
+
 	@Test
 	void isHalfSumTest() {
 		int[] ar = { 1, 2, 10, -7 };
@@ -105,5 +115,16 @@ class StreamIntroductionTests {
 		assertTrue(isHalfhSum(ar2));
 		int[] arrayfalse = { 1, 2, 10, 7 };
 		assertFalse(isHalfhSum(arrayfalse));
+	}
+	@Test
+	void isHalfSumTest2() {
+		int[] ar = { 1, 2, 10, -7 };
+		assertTrue(isHalfhSum2(ar));
+		int[] ar1 = { 4, 5, 6, 17, 18, 20 };
+		assertTrue(isHalfhSum2(ar1));
+		int[] ar2 = {11,11,11,11};
+		assertTrue(isHalfhSum2(ar2));
+		int[] arrayfalse = { 1, 2, 10, 7 };
+		assertFalse(isHalfhSum2(arrayfalse));
 	}
 }
