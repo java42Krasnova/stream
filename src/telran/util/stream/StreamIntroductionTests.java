@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,7 +67,6 @@ class StreamIntroductionTests {
 	private Integer[] getLotoNumbers(int nNumbers, int min, int max) {
 		// TODO using one stream to get array of unique random numbers in the given
 		// range;
-		// done
 		return new Random().ints(min, max).distinct().limit(nNumbers).boxed().toArray(Integer[]::new);
 	}
 
@@ -79,52 +78,75 @@ class StreamIntroductionTests {
 		Arrays.stream(lotoNum).forEach(n -> assertTrue(n >= 1 && n <= 49));
 	}
 
-//return true is array contains two numbers, the sum of which equals half of all arrays numbers O[N]
-	private boolean isHalfhSum(int[] array) {
-		// TODO done
-		List<Integer>list = Arrays.stream(array).sorted().boxed().collect(Collectors.toList());
+/**
+ * 
+ * @param array
+ * @return true if array contains two numbers, 
+ * the sum of which equals half of all arrays numbers O[N]
+ */
+
+	private boolean isHalfhSum(int[] array) {// hash
+		int halfSum = Arrays.stream(array).sum() / 2;
+		HashSet<Integer> set = new HashSet<>();
+		for (int i = 0; i < array.length; i++) {
+			int serchedVol = halfSum - array[i];
+			if (set.contains(serchedVol)) {
+				return true;
+			}
+			set.add(array[i]);
+		}
+		return false;
+	}
+	
+	private boolean isHalfhSum2(int[] array) {// 2 pint
+		int halfSum = Arrays.stream(array).sum() / 2;
+		Arrays.sort(array);
+		int i = 0;
+		int j = array.length - 1;
+		while (i < j) {
+			if (array[i] + array[j] == halfSum) {
+				return true;
+			}
+			if (array[i] + array[j] > halfSum) {
+				j--;
+			} else {
+				i++;
+			}
+		}
+		return false;
+	}
+	private boolean isHalfhSum3(int[] array) {
+		List<Integer> list = Arrays.stream(array).sorted().boxed().toList();
 		int halfSum = Arrays.stream(array).sum() / 2;
 		int lastIndexToCheck = array.length - 1;
 		List<Integer> subList = list.subList(0, lastIndexToCheck);
 		while (lastIndexToCheck > 0) {
 			if (subList.contains(halfSum - list.get(lastIndexToCheck--))) {
 				return true;
-			} 
+			}
 			subList = list.subList(0, lastIndexToCheck);
 		}
 		return false;
 	}
-
-	private boolean isHalfhSum2(int[] array) {
-		// TODO done
-		int halfSum = Arrays.stream(array).sum() / 2;
-		for(int i=array.length-1; i>=1; i--) {
-			if(array[i]+ array[i-1] == halfSum)
-				return true;
-		}
-		return false;
-	}
-
+	
 	@Test
 	void isHalfSumTest() {
 		int[] ar = { 1, 2, 10, -7 };
 		assertTrue(isHalfhSum(ar));
+		assertTrue(isHalfhSum2(ar));
+		assertTrue(isHalfhSum3(ar));
 		int[] ar1 = { 4, 5, 6, 17, 18, 20 };
 		assertTrue(isHalfhSum(ar1));
-		int[] ar2 = {11,11,11,11};
+		assertTrue(isHalfhSum2(ar1));
+		assertTrue(isHalfhSum3(ar1));
+		int[] ar2 = { 11, 11, 11, 11 };
 		assertTrue(isHalfhSum(ar2));
+		assertTrue(isHalfhSum2(ar2));
+		assertTrue(isHalfhSum3(ar2));
 		int[] arrayfalse = { 1, 2, 10, 7 };
 		assertFalse(isHalfhSum(arrayfalse));
-	}
-	@Test
-	void isHalfSumTest2() {
-		int[] ar = { 1, 2, 10, -7 };
-		assertTrue(isHalfhSum2(ar));
-		int[] ar1 = { 4, 5, 6, 17, 18, 20 };
-		assertTrue(isHalfhSum2(ar1));
-		int[] ar2 = {11,11,11,11};
-		assertTrue(isHalfhSum2(ar2));
-		int[] arrayfalse = { 1, 2, 10, 7 };
 		assertFalse(isHalfhSum2(arrayfalse));
+		assertFalse(isHalfhSum3(arrayfalse));
 	}
+
 }
