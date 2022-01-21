@@ -85,6 +85,7 @@ class StreamIntroductionTests {
  * the sum of which equals half of all arrays numbers O[N]
  */
 
+	// V.R. Looks good
 	private boolean isHalfhSum(int[] array) {// hash
 		int halfSum = Arrays.stream(array).sum() / 2;
 		HashSet<Integer> set = new HashSet<>();
@@ -98,9 +99,12 @@ class StreamIntroductionTests {
 		return false;
 	}
 	
+	// V.R. Looks good
 	private boolean isHalfhSum2(int[] array) {// 2 pint
 		int halfSum = Arrays.stream(array).sum() / 2;
 		Arrays.sort(array);
+		// V.R. The variable names indexLeft and indexRight are much better
+		// It isn't recommended to use names i & j out of the cirle.
 		int i = 0;
 		int j = array.length - 1;
 		while (i < j) {
@@ -112,9 +116,10 @@ class StreamIntroductionTests {
 			} else {
 				i++;
 			}
-		}
+		} 
 		return false;
 	}
+	// V.R. The complexity isn't O[n] here
 	private boolean isHalfhSum3(int[] array) {
 		List<Integer> list = Arrays.stream(array).sorted().boxed().toList();
 		int halfSum = Arrays.stream(array).sum() / 2;
@@ -126,8 +131,8 @@ class StreamIntroductionTests {
 			}
 			subList = list.subList(0, lastIndexToCheck);
 		}
-		return false;
-	}
+		return false;  
+	}  
 	
 	@Test
 	void isHalfSumTest() {
