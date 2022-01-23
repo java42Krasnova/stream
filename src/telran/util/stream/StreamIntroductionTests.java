@@ -228,7 +228,8 @@ class StreamIntroductionTests {
 				}
 
 private void arrayShuffling(int ar[]){
-	//TODO printing out array in the shuffling order
+	//TODO done 
+	//printing out array in the shuffling order
 	//without any additional collections
 	//one pipeline  
 	new Random().ints(0, ar.length).distinct().limit(ar.length).forEach(el -> System.out.print(ar[el] + " "));
@@ -242,7 +243,7 @@ void shuffingTest() {
 }
 
 private void digitsStatistics() {
-	//TODO
+	//TODO done
 	//Generating 1_000_000 random positive numbers (1-Integer.max_VAlue)
 	//display out digits and occurrences sorted by  in descending order
 	//1: <occurrences value>
